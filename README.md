@@ -9,6 +9,8 @@ El capítulo 1 nos provee una descripción general de los algoritmos y cómo pod
 buena introducción al libro y a los temas que se verán, por lo tanto, tal como define el nombre del capítulo, nos define qué es un algoritmo junto con unos ejemplos para un 
 mejor aprendizaje y su rol en la computación.
 
+#### 1.1 Algoritmos
+
 El libro nos define el concepto principal del capítulo, los algoritmos, de la siguiente forma: "Informalmente, un **algoritmo** es cualquier proceso computacional bien definido que 
 toma algun **valor**, o conjunto de valores, como **entrada** y produce algún valor, o a su vez, un conjunto de valores, como **salida** en una cantidad de tiempo finita".
 
@@ -36,3 +38,6 @@ Además, los algoritmos son de gran importancia ya que pueden dar solución a un
 
 Otro concepto clave es usar las apropiadas estructuras de datos, es una parte importante del diseño de los algoritmos. Una **estructura de datos** es una manera de almacenar y organizar datos de manera que facilite el acceso y modificación de estos.
 
+#### 1.2 Algoritmos como una tecnología
+
+El subtema nos presenta una introducción de la importancia de implementar algoritmos que nos permitan optimizar los recursos disponibles de la mejor manera posible, y dando a su vez solución a los problemas computacionales. Entre los recursos más importantes tenemos el tiempo y la memoria, refiriendose a que deben ser eficientes en consumo de tiempo de ejecución y la cantidad de memoria a usar en la ejecución de algoritmos de manera que sea eficiente.
