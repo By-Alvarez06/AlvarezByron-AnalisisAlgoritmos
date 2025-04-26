@@ -23,6 +23,7 @@ salida y conseguir esa relación de valores que da solución al problema.
 Un ejemplo claro de esto es precisamente el que nos provee el libro:
 
 ![image](https://github.com/user-attachments/assets/5cd1f3fa-d34e-42d9-8152-36e7bae46338)
+
 *Imagen de ejemplo de valores de entrada y salida de un problema*
 
 Supongamos que debemos ordenar una secuencia de números de manera ascendente, la manera en que un algoritmo trabajaría sería:
@@ -95,5 +96,29 @@ Por otro lado, nos muestran la importancia de, al momento de buscar resolver un 
 de ejecución posible, menor uso de espacio, más fácil de programar, entre otros. Y aquí es donde conocemos el concepto de ***Algoritmia*** como la ciencia que nos permite evaluar 
 el efecto de estos diferentes factores externos (prioridades o limitaciones del equipo) sobre los algoritmos disponibles; también es la ciencia que nos indica la forma de diseñar 
 un nuevo algoritmo para una tarea concreta.
+
+**Ejemplos del libro de distintos algorítmos aritmético**
+
+![image](https://github.com/user-attachments/assets/e1ddd236-45b7-4c81-af17-5f962fa85f08)
+
+*Ejemplo de diferencia entre multiplicación americana e inglesa*
+
+![image](https://github.com/user-attachments/assets/e2a031ae-757b-4812-81b3-6b8b542eb4fa)
+
+*Ejemplo de multiplicación a la russe*
+
+![image](https://github.com/user-attachments/assets/e0a554b4-edd0-4b3a-987a-5d58c5780cf1)
+
+*Ejemplo de método de multiplicación mediante divide y vencerás*
+
+En el caso de todos estos métodos de multiplicación, todos cumplen un mismo propósito: brindar la respuesta al producto de dos número, su diferencia radica en la manera de 
+realizarlo, el proceso, los pasos y por supuesto su enfoque prioritario. 
+
+Los métodos americano e inglés o "algoritmo clásico" no presentan mucha diferencia, el método *"a la russe"* requiere de un proceso más repetitivo; para la primera columna de 
+divisiones enteras para 2, y la segunda columna sumas sucesivas de si mismo, tomando unicamente los términos impares de la primera columna y se suman los números de la columna 
+derecha de los términos tomados. O por otro lado, el método divide y vencerás, poco común pero que busca realizar más operaciones, con menor cantidad de dígitos, sin embargo, 
+es el más veloz para ejecutar en una computadora siempre que los números a multiplicar sean lo suficientemente grandes.
+
+
 
 ### Capítulo 2: Algoritmia elemental
