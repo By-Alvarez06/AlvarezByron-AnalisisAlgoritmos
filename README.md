@@ -2,7 +2,7 @@
 Repositorio de la materia Análisis de Algoritmos - 4to Ciclo "B"
 
 # Resúmenes
-## Libro: Introduction to Algorithms
+## Libro: Introduction to Algorithms. Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein
 ### Capítulo 1: The Role of Algorithms in Computing
 
 El capítulo 1 nos provee una descripción general de los algoritmos y cómo podemos encontrarlos en los sistemas modernos computacionales. Se busca partir con bases para una
@@ -63,9 +63,11 @@ El desempeño del sistema total de un computador depende de escoger algoritmos e
 computacionales, se estan dando avances en algoritmos. Los algoritmos tienen una gran importancia en la computación contemporanea en procesos como:
 - Arquitecturas de computadores avanzados y tecnologías de fabricación
 - Interfaces gráficas de usuario, intuitivas y fáciles de usar (GUIs)
-- Sistemas orientados a objetos
-- Tecnologías web integradas
-- Redes veloces, tanto como conectados o inalambricas
-- Machine learning
-- Y dispositivos móviles
 
+### Capítulo 2: Getting Started
+#### 2.1 Insertion sort
+#### 2.2 Analyzing algorithms.
+---
+## Libro: Fundamentos de algoritmia. Brassard, G. & Bratley, P. (2000).
+### Capítulo 1: Preliminares
+### Capítulo 2: Algoritmia elemental
