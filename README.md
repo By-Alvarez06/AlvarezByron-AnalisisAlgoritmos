@@ -67,6 +67,23 @@ computacionales, se estan dando avances en algoritmos. Los algoritmos tienen una
 
 ### Capítulo 2: Getting Started
 #### 2.1 Insertion sort
+
+En este capítulo, inicia con una introducción a los algoritmos que conoceremos y se nos especifica como estos se nos explicarán en un pseudocódigo el cual será bastante fácil 
+de entender debido a nuestros conocimientos sobre computación y programación. ¿Qué separa al pseudocódigo del código real?: la diferencia radica en que, en pseudocódigo, 
+empleamos cualquier expresión que sea necesaria para expresar un método de la forma más clara y concisa.
+
+El algoritmo de **Orden por Insercion** (Insertion sort) soluciona el problema de ordenar una secuencia *n* de números. Estos números se los conoce también como **llaves**
+
+![image](https://github.com/user-attachments/assets/b65854b6-fc45-4f81-97b8-5eac7a7fae8d)
+
+*Ejemplo de inserción con cartas*
+
+El ejemplo que nos brinda el libro es un método de inserción en el cual se toman cartas con la mano derecha de una baraja, para colocarlas de manera ascendente en la otra mano, es decir, que con cada carta que se tome del mazo, se hace una comparación con las cartas que ya se posee en la otra mano. Dándonos así un pseudocódigo el cual compara, por cada iteración, que la carta o el número anterior sea menor que el posterior, sino, se realiza el ordenamiento y la permutación de estos. Como se puede observa en la siguiente imagen en la que se tiene una lista de números (5, 2, 4, 6, 1, 3).
+
+![image](https://github.com/user-attachments/assets/d88e4973-6101-4fd8-a65d-04c5624282c3)
+
+*Imagen de muestra del proceso de permutación*
+
 #### 2.2 Analyzing algorithms
 #### 2.3 Designing algorithms
 ---
