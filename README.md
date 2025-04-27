@@ -85,7 +85,34 @@ El ejemplo que nos brinda el libro es un método de inserción en el cual se tom
 *Imagen de muestra del proceso de permutación*
 
 #### 2.2 Analyzing algorithms
+
+**Analizar** un algoritmo se refiere a predecir la cantidad de recursos que este requerirá, considerando aspectos como memoria, ancho de banda o consumo de energia.
+Se usa el modelo **RAM** (Random Access Machine), donde cada operación básica (suma, comparación, acceso a memoria) toma una cantidad constante de tiempo. Y para determinar la 
+cantidad de recursos, se toman en consideración puntos importantes como:
+- El tiempo de ejecución depende del tamaño de la entrada.
+- Se busca una expresión matemática que relacione el tamaño de la entrada *n* con el número de operaciones realizadas.
+
+Además se nos presenta una notación asíntota, ya que para analizar un algoritmo es preferente tomar en cuenta el peor escenario, en lugar del escenario promedio o el mejor escenario:
+- O-notation: Límite superior ("no peor que").
+- Ω-notation: Límite inferior ("no mejor que").
+- Θ-notation: Límite ajustado ("exactamente del orden de").
+
+Y al analizar el *insertion sort* podemos sacar la conclusión de que es eficiente para entradas pequeñas o casi ordenadas, pero ineficiente para *n* grande.
+
 #### 2.3 Designing algorithms
+
+El capítulo nos da una introducción a los métodos y diferentes proceso existentes para diseñar un algoritmo. Hay una amplia gama de métodos para diseñar algoritmos, por ejemplo, 
+*Insertion Sort* usa el método incremental: inserta cada nuevo elemento en su lugar dentro de un subarreglo previamente ordenado.
+
+*Introducción al método divide y vencerás (divide-and-conquer):*
+Esta técnica permite diseñar algoritmos mucho más eficientes en el peor caso que el método incremental, además, su análisis suele ser más sencillo. Muchos algoritmos útiles 
+son recursivos: resuelven un problema grande dividiéndolo en varios subproblemas más pequeños (similares al original), resolviéndolos recursivamente y combinando sus soluciones.
+
+Este proceso cuenta de tres partes o tres pasos a tomar en cuenta:
+- Dividir: Partir el problema en subproblemas más pequeños.
+- Conquistar: Resolver los subproblemas (normalmente de manera recursiva).
+- Combinar: Unir las soluciones de los subproblemas para formar la solución del problema original.
+
 ---
 ## Libro: Fundamentos de algoritmia. Brassard, G. & Bratley, P. (2000).
 ### Capítulo 1: Preliminares
