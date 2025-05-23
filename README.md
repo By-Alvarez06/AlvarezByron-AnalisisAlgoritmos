@@ -207,3 +207,37 @@ es el más veloz para ejecutar en una computadora siempre que los números a mul
 
 
 ### Capítulo 2: Algoritmia elemental
+
+Este capítulo es clave para comenzar a pensar como alguien que realmente diseña algoritmos, no solo los aplica. Nos introduce al análisis de eficiencia, es decir, cómo medir cuán "bueno" o rápido es un algoritmo cuando lo ejecutamos con diferentes tamaños de entrada. No basta con que un algoritmo funcione, también queremos que sea lo más eficiente posible, sobre todo cuando la entrada crece mucho.
+
+#### ¿Por qué necesitamos analizar algoritmos?
+
+Imaginemos dos algoritmos que hacen lo mismo, pero uno se tarda minutos y el otro horas cuando les das muchos datos. ¿Cuál preferirías usar? Exacto. El análisis de algoritmos nos permite predecir estos comportamientos y elegir el mejor.
+
+#### Modelos de costo y unidades de medida
+
+Los autores explican que para analizar el tiempo de un algoritmo, se necesita contar el número de operaciones "básicas" que hace, como sumas, comparaciones o accesos a arreglos. Para eso, se define un modelo simplificado (como el modelo RAM) donde cada operación cuesta lo mismo.
+
+También se menciona que no siempre se mide solo el tiempo: a veces importa también el **espacio**, o sea, cuánta memoria usa el algoritmo.
+
+#### Casos: mejor, peor y promedio
+
+El capítulo distingue entre distintos escenarios:
+
+* **Mejor caso**: cuando el algoritmo tiene suerte y resuelve el problema rapidísimo.
+* **Peor caso**: cuando se enfrenta a los datos más difíciles.
+* **Caso promedio**: lo que normalmente esperaríamos.
+
+Pero ojo: aunque el promedio suena más útil, muchas veces analizamos el **peor caso**, porque nos da una garantía mínima de rendimiento (como pensar en lo peor que podría pasar).
+
+#### Análisis empírico vs. teórico
+
+También se habla de la diferencia entre:
+
+* **Medir** el tiempo con un cronómetro (análisis empírico), lo cual puede variar dependiendo del computador, compilador, etc.
+* **Estimar** el comportamiento con fórmulas matemáticas (análisis teórico), que es más general y no depende del equipo.
+
+Este capítulo nos deja una idea súper importante: el diseño de algoritmos no se trata solo de que "funcionen", sino de que sean eficientes, sobre todo cuando enfrentan entradas muy grandes. También nos da las herramientas básicas para empezar a analizar algoritmos y comparar su rendimiento en diferentes situaciones.
+
+### Capítulo 3: Notación Asintótica
+
