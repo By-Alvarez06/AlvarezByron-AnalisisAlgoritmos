@@ -293,7 +293,7 @@ Por ejemplo, si una función es $5n^2 + 3n + 10$, su notación asintótica es si
 Este capítulo es fundamental para poder analizar algoritmos como verdaderos profesionales. Aprendemos a abstraer lo que realmente importa: cómo escala el algoritmo cuando los problemas se hacen grandes. Saber usar O, Ω y Θ te da el poder de comparar algoritmos sin necesidad de correrlos, solo con matemática y lógica.
 
 ---
-### 4.2 Análisis de las estructuras de control
+### Capítulo 4.2 Análisis de las estructuras de control
 
 En este apartado, los autores se enfocan en cómo analizar el **tiempo de ejecución** de las **estructuras básicas de control** que usamos en la mayoría de los algoritmos, como los condicionales y los bucles. La idea es ver cómo afectan estas estructuras al comportamiento general del algoritmo, sobre todo en términos del crecimiento de tiempo cuando la entrada aumenta.
 
