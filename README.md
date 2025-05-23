@@ -65,6 +65,8 @@ computacionales, se estan dando avances en algoritmos. Los algoritmos tienen una
 - Arquitecturas de computadores avanzados y tecnologías de fabricación
 - Interfaces gráficas de usuario, intuitivas y fáciles de usar (GUIs)
 
+---
+
 ### Capítulo 2: Getting Started
 #### 2.1 Insertion sort
 
@@ -113,6 +115,8 @@ Este proceso cuenta de tres partes o tres pasos a tomar en cuenta:
 - Conquistar: Resolver los subproblemas (normalmente de manera recursiva).
 - Combinar: Unir las soluciones de los subproblemas para formar la solución del problema original.
 
+---
+
 ### Capítulo 3: Caracterizando los Tiempos de Ejecución (Characterizing Running Times)
 
 Este capítulo profundiza en cómo podemos describir de forma más precisa y útil el tiempo que tarda un algoritmo en ejecutarse. En capítulos anteriores vimos cómo calcular tiempos exactos (como con Insertion Sort), pero aquí nos enfocamos en algo más general: el **crecimiento del tiempo de ejecución** cuando la entrada se vuelve muy grande. Este enfoque se conoce como **eficiencia asintótica**.
@@ -120,8 +124,6 @@ Este capítulo profundiza en cómo podemos describir de forma más precisa y út
 #### ¿Por qué importa esto?
 
 Cuando trabajamos con algoritmos que van a procesar entradas grandes (que es lo más común en la vida real), no nos interesa tanto saber cuántas operaciones hace exactamente, sino **cómo crece ese número en relación al tamaño de la entrada**. Por ejemplo, sabemos que Merge Sort es más rápido que Insertion Sort en entradas grandes, porque su tiempo de ejecución crece como $n \log n$ y no como $n^2$.
-
----
 
 #### 3.1 Notaciones O, Ω y Θ
 
@@ -133,13 +135,9 @@ Aquí se introducen tres notaciones súper importantes para hablar del crecimien
 
 Estas notaciones son clave para comparar algoritmos sin tener que meternos en cuentas complicadas ni fijarnos en los detalles como las constantes o términos de menor orden.
 
----
-
 #### 3.2 Definiciones formales
 
 Después de explicarlas de forma intuitiva, se pasa a dar definiciones matemáticas más precisas. Esto es útil si se quiere demostrar con rigor que un algoritmo es $O(n^2)$ o $Θ(n \log n)$, por ejemplo. También se muestran propiedades como reflexividad, simetría y transposición, que ayudan a manipular expresiones con estas notaciones.
-
----
 
 #### 3.3 Notaciones estándar y funciones comunes
 
