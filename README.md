@@ -551,8 +551,6 @@ Como también demostramos previamente que `T(n) = O(φ^n)`, concluimos que:
 T(n) = Θ(φ^n)
 ```
 
----
-
 ### Conclusión
 
 El algoritmo recursivo de Fibonacci es **exponencialmente ineficiente**, con un tiempo de ejecución de:
@@ -562,4 +560,8 @@ El algoritmo recursivo de Fibonacci es **exponencialmente ineficiente**, con un 
 ```
 
 Esto lo convierte en un mal candidato para cálculos grandes, a menos que se optimice con **memorización o programación dinámica**.
+
+## Taller 3 - Prueba de Escritorio Algoritmo Burbuja
+
+![image](https://github.com/user-attachments/assets/cbe7bafd-323c-4ff3-bd63-01013d0c5cef)
 
