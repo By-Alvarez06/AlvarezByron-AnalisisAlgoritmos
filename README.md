@@ -357,8 +357,94 @@ bloque B → Θ(n^2)
 
 Este tema nos enseña que para analizar el tiempo de un algoritmo no hay que medir cada línea como si estuviéramos programando en una hoja de cálculo. En lugar de eso, analizamos bloques completos usando el comportamiento de las estructuras de control. Esto nos permite estimar con claridad cómo escalará nuestro algoritmo cuando los datos de entrada sean cada vez más grandes.
 
+
+
+
+
+
 ---
 # Talleres
+
+## Taller 1 - Comparación de Funciones Asintóticas
+
+Este taller tiene como objetivo aplicar las definiciones de la notación **O-grande** (cota superior) para comparar el crecimiento de funciones. Resolveremos dos ejercicios principales.
+
+### **Parte 1**
+
+Dadas las funciones:
+
+* $f(n) = n^3 + 9n^2 \log n$
+* $g(n) = n^2 \log n$
+
+Comprobar que $f(n) \in O(g(n))$ y Comprobar que $f(n) \notin O(n^2)$
+
+#### 1. Comparación entre $f(n)$ y $g(n)$:
+
+* Dividimos $f(n)$ entre $g(n)$:
+
+  ![image](https://github.com/user-attachments/assets/34e11f6c-4cf8-40e9-acb5-6b4520ab7bb1)
+
+* Simplificando:
+
+  ![image](https://github.com/user-attachments/assets/01433e01-b6cb-4839-b0ae-83fb9eccf843)
+
+* Como $\frac{n}{\log n} \to \infty$ cuando $n \to \infty$, eso implica que:
+
+  ![image](https://github.com/user-attachments/assets/28c9ef89-1c88-4635-8434-371aef99a5c4)
+
+**Resultado**:
+- **$f(n) \notin O(g(n))$**
+- **$f(n) \in \Omega(g(n))$** (ya que f(n) crece estrictamente más rápido)
+
+#### 2. Comprobación de que $f(n) \notin O(n^2)$:
+
+* Consideramos el término dominante de $f(n)$: $n^3$
+* Claramente, $n^3 \gg n^2$ cuando $n \to \infty$
+* Esto implica que:
+
+  ![image](https://github.com/user-attachments/assets/40267bb0-e1be-486c-bcdf-66496fbc7d91)
+
+> **Resultado**:
+> ❌ **$f(n) \notin O(n^2)$**
+
+### **Parte 2**
+
+Dadas las funciones:
+
+* $f(n) = 2^n$
+* $g(n) = 2^{2n} = (2^n)^2$
+
+Queremos determinar:
+
+* ¿$f(n) \in O(g(n))$?
+* ¿$g(n) \in O(f(n))$?
+
+Sabemos que:
+
+$$
+2^n < 2^{2n} = (2^n)^2
+\Rightarrow \frac{f(n)}{g(n)} = \frac{2^n}{2^{2n}} = 2^{-n} \to 0
+$$
+
+Esto implica que:
+
+* $f(n) \in O(g(n))$ ✅
+* $g(n) \notin O(f(n))$ ❌ (porque la razón tiende a infinito)
+
+> **Resultado**:
+>
+> * ✅ **$f(n) \in O(g(n))$**
+> * ❌ **$g(n) \notin O(f(n))$**
+> * ✅ Además, $f(n) \in o(g(n))$, es decir, crece *mucho* más lento
+
+### Conclusión General
+
+| Funciones comparadas                             | Relación O-grande                          |
+| ------------------------------------------------ | ------------------------------------------ |
+| $f(n) = n^3 + 9n^2 \log n$ y $g(n) = n^2 \log n$ | ❌ $f(n) \notin O(g(n))$                    |
+| $f(n) = n^3 + 9n^2 \log n$ y $n^2$               | ❌ $f(n) \notin O(n^2)$                     |
+| $f(n) = 2^n$, $g(n) = 2^{2n}$                    | ✅ $f(n) \in O(g(n))$, ❌ $g(n) \in O(f(n))$ |
+
 
 ## Taller 2 - Análisis del Algoritmo de Fibonacci
 
