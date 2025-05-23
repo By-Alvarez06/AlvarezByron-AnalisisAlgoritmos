@@ -204,8 +204,7 @@ divisiones enteras para 2, y la segunda columna sumas sucesivas de si mismo, tom
 derecha de los términos tomados. O por otro lado, el método divide y vencerás, poco común pero que busca realizar más operaciones, con menor cantidad de dígitos, sin embargo, 
 es el más veloz para ejecutar en una computadora siempre que los números a multiplicar sean lo suficientemente grandes.
 
-
-
+---
 ### Capítulo 2: Algoritmia elemental
 
 Este capítulo es clave para comenzar a pensar como alguien que realmente diseña algoritmos, no solo los aplica. Nos introduce al análisis de eficiencia, es decir, cómo medir cuán "bueno" o rápido es un algoritmo cuando lo ejecutamos con diferentes tamaños de entrada. No basta con que un algoritmo funcione, también queremos que sea lo más eficiente posible, sobre todo cuando la entrada crece mucho.
@@ -239,5 +238,122 @@ También se habla de la diferencia entre:
 
 Este capítulo nos deja una idea súper importante: el diseño de algoritmos no se trata solo de que "funcionen", sino de que sean eficientes, sobre todo cuando enfrentan entradas muy grandes. También nos da las herramientas básicas para empezar a analizar algoritmos y comparar su rendimiento en diferentes situaciones.
 
+---
 ### Capítulo 3: Notación Asintótica
+
+Este capítulo nos enseña a hablar el idioma universal del análisis de algoritmos: la notación asintótica. Básicamente, es una forma matemática de describir cómo crece el tiempo (o espacio) que usa un algoritmo a medida que aumentamos el tamaño de los datos de entrada. No nos interesa tanto saber cuántas instrucciones exactas se ejecutan, sino cómo se comporta ese número cuando el problema se hace gigante.
+
+#### ¿Por qué usamos notación asintótica?
+
+Porque no queremos depender de detalles como:
+
+* El lenguaje de programación
+* El hardware
+* El compilador
+
+Queremos comparar algoritmos en abstracto, y para eso nos enfocamos en lo que más influye: el crecimiento.
+
+Ejemplo: No es lo mismo un algoritmo que crece como $n^2$ que uno que crece como $n \log n$. Cuando $n$ es pequeño no se nota mucho, pero cuando es grande, la diferencia es brutal.
+
+#### Las tres notaciones clave
+
+1. **O-grande** (también llamada "cota superior"):
+   Se usa para decir que el tiempo de ejecución no crece más rápido que una cierta función.
+   Es decir, el algoritmo es como mucho tan lento como eso.
+   Ejemplo: Si decimos que algo es $O(n^2)$, puede que a veces funcione más rápido, pero nunca será peor que eso (para valores grandes de $n$).
+
+2. **Ω-grande** (cota inferior):
+   Esta nos dice que el algoritmo al menos necesita ese tiempo.
+   O sea, no va a ser más rápido que eso en general.
+
+3. **Θ (Theta)**:
+   Es la notación más precisa.
+   Significa que el algoritmo tiene exactamente ese crecimiento, ni más ni menos (salvo constantes y detalles menores).
+   Cuando algo es $Θ(n \log n)$, eso es lo que realmente podemos esperar, sin sorpresas.
+
+#### Ejemplos útiles
+
+* **$O(1)$** → Tiempo constante: no importa cuánto crezca el input.
+* **$O(\log n)$** → Crecimiento muy lento, ideal.
+* **$O(n)$** → Tiempo lineal, súper razonable.
+* **$O(n^2)$** → Empieza a doler en inputs grandes.
+* **$O(2^n)$** → Básicamente impracticable si $n$ es mayor que 30–40.
+
+#### ¿Cómo usar esta notación?
+
+El capítulo también muestra cómo podemos usar estas notaciones para **comparar algoritmos**, ignorando los detalles que no afectan el crecimiento (como multiplicar por 10 o sumar 50).
+
+También da reglas útiles:
+
+* Podemos ignorar constantes.
+* Podemos ignorar términos de menor orden.
+
+Por ejemplo, si una función es $5n^2 + 3n + 10$, su notación asintótica es simplemente $Θ(n^2)$.
+
+Este capítulo es fundamental para poder analizar algoritmos como verdaderos profesionales. Aprendemos a abstraer lo que realmente importa: cómo escala el algoritmo cuando los problemas se hacen grandes. Saber usar O, Ω y Θ te da el poder de comparar algoritmos sin necesidad de correrlos, solo con matemática y lógica.
+
+---
+### 4.2 Análisis de las estructuras de control
+
+En este apartado, los autores se enfocan en cómo analizar el **tiempo de ejecución** de las **estructuras básicas de control** que usamos en la mayoría de los algoritmos, como los condicionales y los bucles. La idea es ver cómo afectan estas estructuras al comportamiento general del algoritmo, sobre todo en términos del crecimiento de tiempo cuando la entrada aumenta.
+
+#### Instrucciones simples
+
+Primero, se parte con lo más básico: una **instrucción elemental** (como una suma, una asignación, una comparación) se considera que tiene un **costo constante**. Es decir, si un algoritmo hace 5 sumas, eso cuesta 5 unidades de tiempo.
+
+#### Estructuras condicionales (if/else)
+
+Cuando tenemos algo como:
+
+```c
+if (condición) {
+   instrucción A;
+} else {
+   instrucción B;
+}
+```
+
+El análisis se basa en el **peor caso**. Eso significa que, aunque tal vez una de las ramas se ejecute más seguido que la otra, asumimos que se puede ejecutar **la rama más costosa** para tener una garantía sólida del rendimiento.
+
+#### Bucles (for, while)
+
+Esta parte es clave. El análisis de un bucle depende de cuántas veces se repite el cuerpo del bucle y qué tan costoso es lo que hay dentro.
+
+Por ejemplo:
+
+```c
+for (i = 1; i <= n; i++) {
+   hacerAlgoConstante();
+}
+```
+
+Este bucle tiene un **costo total de $Θ(n)$** porque ejecuta una operación constante $n$ veces.
+
+Si dentro del bucle hay otro bucle:
+
+```c
+for (i = 1; i <= n; i++) {
+   for (j = 1; j <= n; j++) {
+      hacerAlgoConstante();
+   }
+}
+```
+
+Entonces el costo total es **$Θ(n^2)$** porque cada una de las $n$ iteraciones del bucle externo ejecuta $n$ operaciones más del bucle interno.
+
+También se mencionan bucles en los que el número de repeticiones **no es lineal**, como cuando se va dividiendo algo por dos (caso típico de algoritmos como la búsqueda binaria), y ahí el costo tiende a ser **logarítmico** ($Θ(\log n)$).
+
+#### Secuencias de instrucciones
+
+Cuando un algoritmo tiene varias instrucciones o bloques en secuencia (uno después del otro), el costo total es la **suma de los costos** de cada parte. Pero para el análisis asintótico, nos quedamos con el **mayor crecimiento** (el término dominante), ignorando los menores.
+
+Ejemplo:
+
+```c
+bloque A → Θ(n)
+bloque B → Θ(n^2)
+→ Total: Θ(n^2)
+```
+
+Este tema nos enseña que para analizar el tiempo de un algoritmo no hay que medir cada línea como si estuviéramos programando en una hoja de cálculo. En lugar de eso, analizamos bloques completos usando el comportamiento de las estructuras de control. Esto nos permite estimar con claridad cómo escalará nuestro algoritmo cuando los datos de entrada sean cada vez más grandes.
 
