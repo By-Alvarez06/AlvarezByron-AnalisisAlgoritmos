@@ -416,8 +416,8 @@ Dadas las funciones:
 
 Queremos determinar:
 
-* ¿$f(n) \in O(g(n))$?
-* ¿$g(n) \in O(f(n))$?
+* $f(n) \in O(g(n))$
+* $g(n) \in O(f(n))$
 
 Sabemos que:
 
@@ -564,4 +564,36 @@ Esto lo convierte en un mal candidato para cálculos grandes, a menos que se opt
 ## Taller 3 - Prueba de Escritorio Algoritmo Burbuja
 
 ![image](https://github.com/user-attachments/assets/cbe7bafd-323c-4ff3-bd63-01013d0c5cef)
+
+### Prueba de escritorio del algoritmo de ordenamiento en base al arreglo **[6-8-3-4-1]**
+
+| N | I | J | A[J-1] | A[J] | If(A[J-1]>A[J]) | A[J-1] | A[J] |
+|---|---|---|--------|------|------------------|--------|------|
+| 5 | 1 | 5 | 4      | 1    | TRUE             | 1      | 4    |
+| 5 | 1 | 4 | 3      | 1    | TRUE             | 1      | 3    |
+| 5 | 1 | 3 | 8      | 1    | TRUE             | 1      | 8    |
+| 5 | 1 | 2 | 6      | 1    | TRUE             | 1      | 6    |
+| 5 | 2 | 5 | 3      | 4    | FALSE            |        |      |
+| 5 | 2 | 4 | 8      | 3    | TRUE             | 3      | 8    |
+| 5 | 2 | 3 | 6      | 3    | TRUE             | 3      | 6    |
+| 5 | 3 | 5 | 8      | 4    | TRUE             | 4      | 8    |
+| 5 | 3 | 4 | 6      | 4    | TRUE             | 4      | 6    |
+| 5 | 4 | 5 | 6      | 8    | FALSE            |        |      |
+|   |   |   |        |      | **TERMINA EL PROCESO** |        |      |
+
+### Progeso y cambio del arreglo durante el algoritmo
+
+| N° de Iteración | Arreglo |
+|---|---|
+| 1 | 6-8-3-4-1 |
+| 2 | 6-8-3-**1-4** |
+| 3 | 6-8-**1-3**-4 |
+| 4 | 6-**1-8**-3-4 |
+| 5 | **1-6**-8-3-4 |
+| 6 | 1-6-**3-8**-4 |
+| 7 | 1-**3-6**-8-4 | 
+| 8 | 1-3-6-**4-8** | 
+| 9 | 1-3-**4-6**-8 |
+|   | FIN - Arreglo Ordenado |
+
 
