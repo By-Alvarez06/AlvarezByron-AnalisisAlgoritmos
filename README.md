@@ -597,4 +597,137 @@ Esto lo convierte en un mal candidato para cálculos grandes, a menos que se opt
 | 9 | 1-3-**4-6**-8 |
 |   | FIN - Arreglo Ordenado |
 
+## Taller 4 - Traducción de un algoritmo a Java
 
+### Algoritmo de ordenamiento Merge Sort
+
+```
+MERGE(A, p, q, r)
+1  nL = q - p + 1  // longitud de A[p..q]
+2  nR = r - q      // longitud de A[q+1..r]
+3  let L[0..nL-1] y R[0..nR-1] sean nuevos arreglos
+4  for i = 0 to nL-1
+5      L[i] = A[p + i]
+6  for j = 0 to nR-1
+7      R[j] = A[q + j + 1]
+8  i = 0          // i indexa el elemento restante más pequeño en L
+9  j = 0          // j indexa el elemento restante más pequeño en R
+10 k = p           // k indexa la posición en A para llenar
+11 // Mientras cada uno de los arreglos L y R contengan un elemento sin fusionar,
+12 // copia el elemento sin fusionar más pequeño de vuelta en A[p..r].
+13 while i < nL and j < nR
+14     if L[i] <= R[j]
+15         A[k] = L[i]
+16         i = i + 1
+17     else A[k] = R[j]
+18     k = k + 1
+19 // Cuando un arreglo se queda sin elementos,
+20 // copia el resto del otro arreglo de vuelta en A.
+21 while i < nL
+22     A[k] = L[i]
+23     i = i + 1
+24     k = k + 1
+25 while j < nR
+26     A[k] = R[j]
+27     j = j + 1
+28     k = k + 1
+```
+
+### Algoritmo en Java
+
+```Java
+public class MergeSort {
+
+    /**
+     * Combina dos sub-arreglos ordenados en un único arreglo ordenado.
+     * Este método es un componente central del algoritmo de Ordenamiento por Mezcla (Merge Sort).
+     *
+     * @param A El arreglo original que contiene los sub-arreglos a ser combinados.
+     * @param p El índice inicial del primer sub-arreglo (L).
+     * @param q El índice final del primer sub-arreglo (L).
+     * @param r El índice final del segundo sub-arreglo (R).
+     */
+    public static void mezclar(int[] A, int p, int q, int r) {
+        // Calcular las longitudes de los dos sub-arreglos
+        int nL = q - p + 1; // Longitud de A[p...q]
+        int nR = r - q;     // Longitud de A[q+1...r]
+
+        // Crear nuevos arreglos temporales L y R
+        int[] L = new int[nL];
+        int[] R = new int[nR];
+
+        // Copiar elementos de A a L
+        for (int i = 0; i < nL; i++) {
+            L[i] = A[p + i];
+        }
+
+        // Copiar elementos de A a R
+        for (int j = 0; j < nR; j++) {
+            R[j] = A[q + 1 + j];
+        }
+
+        // Inicializar índices para L, R y el arreglo combinado A
+        int i = 0; // i indexa el elemento más pequeño restante en L
+        int j = 0; // j indexa el elemento más pequeño restante en R
+        int k = p; // k indexa la ubicación en A a rellenar
+
+        // Mientras cada uno de los arreglos L y R contenga un elemento sin combinar,
+        // copiar el elemento sin combinar más pequeño de vuelta en A[p...r]
+        while (i < nL && j < nR) {
+            if (L[i] <= R[j]) {
+                A[k] = L[i];
+                i = i + 1;
+            } else {
+                A[k] = R[j];
+                j = j + 1;
+            }
+            k = k + 1;
+        }
+
+        // Copiar cualquier elemento restante de L (si R se agotó)
+        while (i < nL) {
+            A[k] = L[i];
+            i = i + 1;
+            k = k + 1;
+        }
+
+        // Copiar cualquier elemento restante de R (si L se agotó)
+        while (j < nR) {
+            A[k] = R[j];
+            j = j + 1;
+            k = k + 1;
+        }
+    }
+
+    // Ejemplo de uso (opcional, para propósitos de prueba)
+    public static void main(String[] args) {
+        // int[] arr1 = {2, 5, 8, 1, 3, 7}; // Arreglo de ejemplo donde se usaría la mezcla
+        // Para demostrar la mezcla, necesitamos un arreglo parcialmente ordenado
+        // Creemos uno directamente:
+        int[] arr2 = {1, 3, 5, 2, 4, 6}; // Mezclando {1,3,5} y {2,4,6}
+
+        System.out.println("Arreglo original para la demostración de mezcla:");
+        imprimirArreglo(arr2);
+
+        // Aquí, p=0, q=2, r=5 (mezclando A[0..2] y A[3..5])
+        mezclar(arr2, 0, 2, 5);
+
+        System.out.println("Arreglo después de la mezcla:");
+        imprimirArreglo(arr2);
+
+        int[] arr3 = {10, 20, 30, 5, 15, 25, 35};
+        System.out.println("\nArreglo original para otra demostración de mezcla:");
+        imprimirArreglo(arr3);
+        mezclar(arr3, 0, 2, 6);
+        System.out.println("Arreglo después de la mezcla:");
+        imprimirArreglo(arr3);
+    }
+
+    public static void imprimirArreglo(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+}
+```
