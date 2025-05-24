@@ -341,7 +341,7 @@ for (i = 1; i <= n; i++) {
 
 Entonces el costo total es **$Θ(n^2)$** porque cada una de las $n$ iteraciones del bucle externo ejecuta $n$ operaciones más del bucle interno.
 
-También se mencionan bucles en los que el número de repeticiones **no es lineal**, como cuando se va dividiendo algo por dos (caso típico de algoritmos como la búsqueda binaria), y ahí el costo tiende a ser **logarítmico** ($Θ(\log n)$).
+También se mencionan bucles en los que el número de repeticiones **no es lineal**, como cuando se va dividiendo algo por dos (caso típico de algoritmos como la búsqueda binaria), y ahí el costo tiende a ser **logarítmico** $Θ(\log n)$.
 
 #### Secuencias de instrucciones
 
@@ -445,7 +445,7 @@ Esto implica que:
 | $f(n) = n^3 + 9n^2 \log n$ y $n^2$               | ❌ $f(n) \notin O(n^2)$                     |
 | $f(n) = 2^n$, $g(n) = 2^{2n}$                    | ✅ $f(n) \in O(g(n))$, ❌ $g(n) \in O(f(n))$ |
 
-
+---
 ## Taller 2 - Análisis del Algoritmo de Fibonacci
 
 Este taller tiene como objetivo analizar el comportamiento de un algoritmo recursivo clásico: el cálculo de la sucesión de **Fibonacci**. Aplicaremos técnicas de análisis de algoritmos, incluyendo el uso de recurrencias y su resolución.
@@ -561,6 +561,7 @@ El algoritmo recursivo de Fibonacci es **exponencialmente ineficiente**, con un 
 
 Esto lo convierte en un mal candidato para cálculos grandes, a menos que se optimice con **memorización o programación dinámica**.
 
+---
 ## Taller 3 - Prueba de Escritorio Algoritmo Burbuja
 
 ![image](https://github.com/user-attachments/assets/cbe7bafd-323c-4ff3-bd63-01013d0c5cef)
