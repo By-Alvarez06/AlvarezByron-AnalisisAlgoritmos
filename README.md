@@ -402,6 +402,51 @@ A diferencia de la programación dinámica, que también trabaja con subproblema
 
 Los algoritmos voraces son una herramienta poderosa cuando se puede aplicar correctamente. Este capítulo nos muestra que pensar de forma “codiciosa” puede ser una gran estrategia, pero también que no debemos confiar ciegamente: hay que demostrar que la estrategia funciona. En los próximos capítulos se analizan casos donde sí y donde no funciona este enfoque.
 
+### Capítulo 6 - Subtema 6.4: Grafos: Caminos mínimos
+
+En esta parte del capítulo se analiza un problema clásico dentro de los grafos: **encontrar el camino más corto** entre nodos. Es un problema súper común en la vida real, desde rutas de GPS hasta redes de comunicación o transmisión de datos.
+
+#### ¿Qué es un camino mínimo?
+
+Dado un **grafo con pesos en las aristas**, un camino mínimo entre dos vértices es la secuencia de aristas que conecta esos vértices con el **menor costo total posible** (donde “costo” puede ser distancia, tiempo, etc.).
+
+#### ¿Qué algoritmo se usa?
+
+El capítulo se enfoca principalmente en el **algoritmo de Dijkstra**, uno de los más famosos para resolver este tipo de problemas cuando **todos los pesos del grafo son positivos**.
+
+#### ¿Cómo funciona Dijkstra?
+
+* Parte desde un **nodo fuente** y va construyendo los caminos más cortos a todos los demás nodos.
+* Utiliza una estructura de datos (normalmente una cola de prioridad) para **elegir siempre el nodo con menor costo conocido**.
+* A medida que avanza, **actualiza los costos** de llegar a los vecinos de cada nodo.
+* Cuando termina, tiene los **caminos más cortos desde el nodo origen a todos los demás**.
+
+En resumen, **sigue una estrategia voraz**, porque en cada paso elige la opción “más barata” localmente.
+
+#### ¿Por qué es voraz?
+
+Dijkstra es un claro ejemplo de algoritmo voraz porque:
+
+* Siempre elige el **camino aparentemente más corto** en el momento.
+* No vuelve atrás ni reconsidera decisiones anteriores.
+* Aprovecha la **propiedad de elección voraz** y la **subestructura óptima** del problema para garantizar que el camino encontrado es el óptimo.
+
+#### Limitaciones
+
+* **Solo funciona con pesos positivos.** Si hay aristas con pesos negativos, **Dijkstra puede fallar**, porque asume que una vez encontró el camino más corto a un nodo, no hay mejor opción.
+* Para esos casos se usan otros algoritmos, como **Bellman-Ford** (aunque más lento).
+
+#### Ejemplo de aplicación
+
+El libro muestra un ejemplo donde se parte de un nodo y se actualizan los costos mínimos hacia los demás nodos paso a paso. En cada iteración se elige el nodo no visitado con menor costo acumulado.
+
+<img width="646" height="470" alt="image" src="https://github.com/user-attachments/assets/ee8288ac-1faf-455e-a015-eb2123cb46ca" />
+
+#### Conclusión
+
+Este subtema nos muestra que los algoritmos voraces también pueden aplicarse en grafos, **siempre que se respeten ciertas condiciones**. Dijkstra es un ejemplo brillante de eficiencia y simplicidad, siempre que no haya pesos negativos. El algoritmo es práctico, usado en muchas áreas reales, y demuestra cómo la elección local más prometedora puede llevarnos a una solución global óptima.
+
+
 
 
 
