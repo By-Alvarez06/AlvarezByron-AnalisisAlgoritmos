@@ -153,6 +153,75 @@ También se exploran conceptos matemáticos básicos como suelos y techos (floor
 
 **En resumen**, este capítulo nos da las herramientas para hablar el "idioma matemático" del análisis de algoritmos. Aprendemos a ignorar detalles poco relevantes y a enfocarnos en lo que realmente importa: cómo escala un algoritmo cuando la entrada crece.
 
+### Capítulo 4: Divide-and-Conquer (Divide y vencerás)
+
+Este capítulo se centra en uno de los enfoques más usados (y potentes) para diseñar algoritmos eficientes: el método de **divide y vencerás** (*divide-and-conquer*). Aunque ya se mencionó en capítulos anteriores (como en Merge Sort), aquí se analiza en más profundidad, incluyendo su análisis formal mediante **recurrencias**.
+
+#### ¿En qué consiste?
+
+La estrategia de divide y vencerás se basa en **tres pasos simples**:
+
+1. **Dividir** el problema en varios subproblemas más pequeños.
+2. **Conquistar**, es decir, resolver recursivamente cada subproblema.
+3. **Combinar** las soluciones de los subproblemas en una solución global del problema original.
+
+Este enfoque funciona especialmente bien cuando los subproblemas **son del mismo tipo que el problema original** (lo que permite aplicar recursión) y **no se solapan**, a diferencia de la programación dinámica.
+
+#### Ejemplo típico: Merge Sort
+
+Se utiliza como ejemplo recurrente para mostrar cómo aplicar divide y vencerás. El arreglo se divide en mitades, cada mitad se ordena recursivamente y luego se **fusionan** los resultados. Esto da como resultado un algoritmo con tiempo de ejecución:
+
+$$
+T(n) = 2T(n/2) + Θ(n)
+$$
+
+Lo cual se resuelve como:
+
+$$
+T(n) = Θ(n \log n)
+$$
+
+#### Cómo analizar algoritmos recursivos
+
+El capítulo se enfoca mucho en cómo resolver **recurrencias**, que son ecuaciones que expresan el tiempo de ejecución de un algoritmo en términos de sí mismo.
+
+Se presentan **tres técnicas principales** para resolver recurrencias:
+
+##### 1. **Sustitución (por hipótesis inductiva)**
+
+Supone una forma general para la solución y se prueba por inducción. Es poderosa, pero puede requerir algo de intuición para adivinar la forma correcta.
+
+##### 2. **Árbol de recurrencia**
+
+Se visualiza la ejecución recursiva como un árbol, y se suman los costos por nivel. Ayuda a entender cuántas operaciones se hacen en cada paso del proceso recursivo.
+
+##### 3. **Teorema Maestro**
+
+Esta es la herramienta más directa para casos comunes de divide y vencerás. Se aplica a recurrencias del tipo:
+
+$$
+T(n) = aT(n/b) + f(n)
+$$
+
+Donde:
+
+* $a$: número de subproblemas
+* $b$: tamaño al que se reduce cada subproblema
+* $f(n)$: costo de dividir y combinar
+
+El teorema da tres casos que permiten obtener rápidamente la cota asintótica sin tener que resolver todo paso a paso.
+
+#### Otros algoritmos basados en divide and conquer
+
+Además de Merge Sort, el capítulo muestra cómo este enfoque se aplica en otros problemas:
+
+* **Multiplicación rápida de enteros grandes (Karatsuba)**
+* **Máximo subarreglo** (para encontrar el mayor segmento contiguo en un arreglo)
+* **Ordenación rápida (Quick Sort)** — aunque esta se analiza más adelante, también se basa en este principio
+
+Divide and conquer no solo es una técnica eficiente, sino que también **organiza bien los problemas** al reducirlos a partes más pequeñas. Muchos de los algoritmos más importantes usan este enfoque porque, además de ser eficientes, son conceptualmente elegantes y fáciles de implementar con recursión. Saber resolver las recurrencias es clave para entender cómo se comportan estos algoritmos en términos de tiempo.
+
+
 
 ---
 ## Libro: Fundamentos de algoritmia. Brassard, G. & Bratley, P. (2006).
