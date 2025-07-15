@@ -155,7 +155,7 @@ También se exploran conceptos matemáticos básicos como suelos y techos (floor
 
 
 ---
-## Libro: Fundamentos de algoritmia. Brassard, G. & Bratley, P. (2000).
+## Libro: Fundamentos de algoritmia. Brassard, G. & Bratley, P. (2006).
 ### Capítulo 1: Preliminares
 
 #### 1.1 Introducción
@@ -356,6 +356,55 @@ bloque B → Θ(n^2)
 ```
 
 Este tema nos enseña que para analizar el tiempo de un algoritmo no hay que medir cada línea como si estuviéramos programando en una hoja de cálculo. En lugar de eso, analizamos bloques completos usando el comportamiento de las estructuras de control. Esto nos permite estimar con claridad cómo escalará nuestro algoritmo cuando los datos de entrada sean cada vez más grandes.
+
+### Capítulo 6: Algoritmos Voraces
+
+En este capítulo se nos introduce una nueva estrategia de diseño de algoritmos llamada voraz (o greedy en inglés). La idea principal es bastante intuitiva: en cada paso del algoritmo, se toma la decisión que parece ser la mejor en ese momento, sin preocuparse por si eso nos lleva a una solución global óptima o no. O sea, el algoritmo actúa como si estuviera diciendo: “tomo lo que más me conviene ahora”.
+
+#### ¿Cómo funcionan los algoritmos voraces?
+
+Un algoritmo voraz construye la solución paso a paso, eligiendo en cada etapa un elemento que parece el mejor localmente, con la esperanza de que eso conduzca a una solución global óptima.
+
+Pero ojo: no siempre funcionan para todos los problemas. Para que un algoritmo voraz sea correcto, se deben cumplir ciertas condiciones específicas en el problema que se está resolviendo.
+
+#### Características clave
+Para que un problema se pueda resolver correctamente con un algoritmo voraz, normalmente debe cumplir dos propiedades importantes:
+
+1. Subestructura óptima:
+   Esto significa que una solución óptima del problema completo contiene dentro de sí soluciones óptimas a subproblemas. Es como decir que si partes la solución en pedazos, esos pedazos también deben ser lo mejor posible.
+
+2. Propiedad de elección voraz:
+   Significa que es seguro elegir la mejor opción local en cada paso sin arruinar la solución final. Si esta propiedad no se cumple, el algoritmo puede llevarnos a una solución incorrecta.
+
+#### Ejemplos clásicos que sí funcionan
+- Cambio de monedas (cuando las denominaciones son "buenas")
+- Árbol de expansión mínima (algoritmo de Prim y Kruskal)
+- Codificación de Huffman
+- Problema del intervalo máximo sin traslape
+
+En todos estos, aplicar una estrategia voraz sí lleva a una solución óptima.
+
+#### Contraste con programación dinámica
+
+A diferencia de la programación dinámica, que también trabaja con subproblemas, los algoritmos voraces no revisan todas las combinaciones posibles ni almacenan resultados anteriores. Son más rápidos y sencillos, pero solo se pueden usar si las condiciones del problema lo permiten.
+
+#### Ventajas y desventajas
+**Ventajas:**
+
+- Son más simples de implementar.
+- Consumen menos memoria (no necesitan tablas como la programación dinámica).
+- Suelen ser más rápidos en la práctica.
+
+**Desventajas:**
+
+- No garantizan la solución óptima en todos los problemas.
+- Se requiere análisis riguroso para comprobar su validez.
+
+Los algoritmos voraces son una herramienta poderosa cuando se puede aplicar correctamente. Este capítulo nos muestra que pensar de forma “codiciosa” puede ser una gran estrategia, pero también que no debemos confiar ciegamente: hay que demostrar que la estrategia funciona. En los próximos capítulos se analizan casos donde sí y donde no funciona este enfoque.
+
+
+
+
 
 
 
