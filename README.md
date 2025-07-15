@@ -442,9 +442,63 @@ El libro muestra un ejemplo donde se parte de un nodo y se actualizan los costos
 
 <img width="646" height="470" alt="image" src="https://github.com/user-attachments/assets/ee8288ac-1faf-455e-a015-eb2123cb46ca" />
 
-#### Conclusión
-
 Este subtema nos muestra que los algoritmos voraces también pueden aplicarse en grafos, **siempre que se respeten ciertas condiciones**. Dijkstra es un ejemplo brillante de eficiencia y simplicidad, siempre que no haya pesos negativos. El algoritmo es práctico, usado en muchas áreas reales, y demuestra cómo la elección local más prometedora puede llevarnos a una solución global óptima.
+
+### Capítulo 7: Divide y Vencerás
+
+Este capítulo trata sobre una de las estrategias de diseño de algoritmos más conocidas y poderosas: **divide y vencerás** (*divide and conquer*). La idea es súper lógica, pero muy efectiva: **dividir el problema en subproblemas más pequeños, resolverlos por separado y luego combinar las soluciones** para obtener la solución final del problema original.
+
+#### ¿Cómo funciona?
+
+La estrategia de divide y vencerás se compone de tres pasos fundamentales:
+
+1. **Dividir**: separar el problema en subproblemas más pequeños del mismo tipo.
+2. **Vencer (resolver)**: resolver recursivamente cada subproblema.
+3. **Combinar**: juntar las soluciones de los subproblemas para resolver el problema completo.
+
+Esta técnica **es recursiva por naturaleza**, y por eso, muchas veces su análisis requiere trabajar con **recurrencias** para entender el tiempo de ejecución.
+
+#### Ventajas de esta técnica
+
+* Hace que problemas grandes se vuelvan más manejables.
+* Aprovecha la recursión de forma natural.
+* Permite desarrollar **algoritmos eficientes** que serían complejos con métodos iterativos.
+
+#### Ejemplos clásicos
+
+En el capítulo se explican varios ejemplos famosos donde divide y vencerás brilla:
+
+* **Merge Sort**: divide el arreglo en dos mitades, ordena cada una por separado y luego las mezcla.
+* **Quick Sort**: divide los elementos en los menores y mayores que un pivote, y luego ordena recursivamente cada parte.
+* **Búsqueda binaria**: reduce el espacio de búsqueda a la mitad en cada paso.
+* **Multiplicación rápida de enteros grandes**: como el algoritmo de Karatsuba, que reduce el número de multiplicaciones necesarias.
+
+<img width="283" height="324" alt="image" src="https://github.com/user-attachments/assets/7bee228b-71b1-4953-86cf-26a89b94e066" />
+
+*Ejemplo de algoritmo Merge Sort*
+
+#### Análisis de eficiencia
+
+Para analizar el costo de los algoritmos con divide y vencerás, se usan **recurrencias**, que describen el tiempo en función del tamaño del problema. Muchas veces se aplica el **Teorema Maestro** para resolver estas recurrencias fácilmente y obtener una cota asintótica.
+
+Ejemplo:
+En Merge Sort, el tiempo se expresa como:
+
+```
+T(n) = 2T(n/2) + Θ(n)
+```
+
+Que se resuelve como:
+
+```
+T(n) = Θ(n log n)
+```
+
+Esto demuestra que **divide y vencerás puede mejorar bastante el rendimiento** comparado con soluciones ingenuas (como el ordenamiento por inserción, que es Θ(n^2)).
+
+El paradigma de divide y vencerás es una herramienta fundamental para resolver problemas complejos de forma eficiente. No solo ayuda a reducir el tamaño del problema paso a paso, sino que también permite escribir algoritmos más organizados y recursivos. Además, muchos de los algoritmos más rápidos y usados en la práctica (como Merge Sort y búsqueda binaria) **se basan en esta técnica**, por lo que entenderla es clave para cualquier estudiante de algoritmos.
+
+
 
 
 
