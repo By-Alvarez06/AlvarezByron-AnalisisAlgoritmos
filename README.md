@@ -567,6 +567,51 @@ Esto demuestra que **divide y vencerás puede mejorar bastante el rendimiento** 
 
 El paradigma de divide y vencerás es una herramienta fundamental para resolver problemas complejos de forma eficiente. No solo ayuda a reducir el tamaño del problema paso a paso, sino que también permite escribir algoritmos más organizados y recursivos. Además, muchos de los algoritmos más rápidos y usados en la práctica (como Merge Sort y búsqueda binaria) **se basan en esta técnica**, por lo que entenderla es clave para cualquier estudiante de algoritmos.
 
+### Capitulo 10: Algoritmos Probabilistas
+
+En este capítulo se nos presenta una forma diferente (y a veces sorprendente) de resolver problemas usando algoritmos: los **algoritmos probabilistas**. A diferencia de los algoritmos tradicionales, que siempre siguen el mismo camino y dan el mismo resultado para una entrada, estos algoritmos **utilizan el azar o valores aleatorios en alguna parte de su ejecución**.
+
+#### ¿Por qué usar el azar en algoritmos?
+
+La idea puede parecer contraintuitiva al principio (¿por qué dejar que la computadora “tire los dados”?), pero el uso del azar puede tener varias **ventajas importantes**:
+
+* Permite resolver ciertos problemas **más rápido** o de forma más sencilla.
+* Evita peores casos que ocurren solo con ciertas entradas "malas".
+* A veces, **no existe una solución determinista eficiente**, pero sí una aleatoria.
+
+#### Tipos de algoritmos probabilistas
+
+Los autores clasifican estos algoritmos en dos grandes categorías:
+
+1. **Algoritmos de Monte Carlo**
+
+   * Usan aleatoriedad y **pueden dar respuestas incorrectas** con cierta probabilidad.
+   * Lo bueno es que **suelen ser muy rápidos**, y esa probabilidad de error se puede hacer muy baja si se repite el proceso.
+   * Ejemplo típico: test de primalidad probabilista.
+
+2. **Algoritmos de Las Vegas**
+
+   * También usan azar, pero **nunca se equivocan**.
+   * La diferencia es que su **tiempo de ejecución puede variar**, y a veces tardan más de lo esperado.
+   * En otras palabras: **si dan una respuesta, es correcta**, pero no sabemos exactamente cuánto tardarán.
+
+#### Ejemplos destacados del capítulo
+
+El libro analiza algunos casos concretos donde los algoritmos probabilistas brillan:
+
+* **Pruebas de primalidad**:
+  Por ejemplo, el test de Miller-Rabin puede decir con mucha confianza si un número es primo, y es **más rápido** que los métodos deterministas clásicos.
+
+* **Problemas de búsqueda y selección aleatoria**:
+  A veces, seleccionar un elemento al azar o hacer una búsqueda con un poco de suerte puede ser más eficiente que analizar todos los casos.
+
+#### Análisis de estos algoritmos
+
+Cuando analizamos algoritmos probabilistas, no solo se mide el tiempo de ejecución en el peor caso, sino también en el **caso promedio** o la **esperanza matemática** del tiempo.
+
+También se considera la **probabilidad de error** (en los de Monte Carlo), y cómo puede reducirse repitiendo el algoritmo múltiples veces.
+
+Este tema nos abre la mente a otro enfoque para resolver problemas: no todo tiene que ser exacto y determinista. Usar **azar de forma controlada** puede ser una herramienta poderosa en el diseño de algoritmos, especialmente cuando buscamos soluciones rápidas o tratamos con problemas muy difíciles. Lo más importante es saber **cuándo y cómo** usar la aleatoriedad para que nos juegue a favor.
 
 
 
