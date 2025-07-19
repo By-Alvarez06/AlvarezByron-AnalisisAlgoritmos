@@ -1127,6 +1127,56 @@ public class OrdenamientoPorMezcla {
 
 <img width="1610" height="1631" alt="Sin título" src="https://github.com/user-attachments/assets/10680473-0964-4d44-94ff-9584982c2184" />
 
+## 3. Prueba de Escritorio - Divide y Venceras
+### 1er Algoritmo Busqueda Binaria 
 
+```java
+public static int BinRec(int[] T, int i, int j, int x) {
+    if (i == j)
+        return i;
+    int k = (i + j) / 2;
+    if (x <= T[k])
+        return BinRec(T, i, k, x);
+    else
+        return BinRec(T, k + 1, j, x);
+}
 
+public static int BusquedaBin(int[] T, int x) {
+    int n = T.length;
+    if (n == 0 || x > T[n - 1])
+        return n + 1;
+    else
+        return BinRec(T, 0, n, x);
+}
+```
+
+### Prueba de Escritorio en tupla T = [8, 10, 14, 24, 28, 35, 49, 56, 98] / Buscar x = 14
+
+<img width="1787" height="286" alt="image" src="https://github.com/user-attachments/assets/b549b485-76e7-4ba8-b6d4-bcf18d8e1e03" />
+
+### 2do Algoritmo de Busqueda Binaria
+
+```java
+public static int BinIter(int[] T, int x) {
+    int n = T.length;
+    if (x > T[n - 1])
+        return n + 1;
+
+    int i = 0;
+    int j = n;
+
+    while (i < j) {
+        int k = (i + j) / 2;
+        if (x <= T[k])
+            j = k;
+        else
+            i = k + 1;
+    }
+    return i;
+}
+```
+
+### Prueba de Escritorio en tupla T = [8, 10, 14, 24, 28, 35, 49, 56, 98] / Buscar x = 14
+
+<img width="1783" height="323" alt="image" src="https://github.com/user-attachments/assets/1ff5f086-cc63-4e90-a80b-76a5f9c61d1f" />
 
