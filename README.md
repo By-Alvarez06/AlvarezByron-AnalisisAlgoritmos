@@ -625,7 +625,7 @@ Este tema nos abre la mente a otro enfoque para resolver problemas: no todo tien
 
 
 ---
-# Talleres
+# Talleres - 1er Bimestre
 
 ## Taller 1 - Comparación de Funciones Asintóticas
 
@@ -993,3 +993,140 @@ public class MergeSort {
     }
 }
 ```
+
+---
+# Talleres - 2do Bimestre
+## 1. Prueba de Escitorio - Algoritmo Voraz
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class GreedyChange {
+
+    /**
+     * Da el cambio de n unidades utilizando el menor número posible de monedas.
+     * La constante C especifica las monedas disponibles.
+     *
+     * @param n La cantidad total de cambio a devolver.
+     * @return Una lista de enteros que representan las monedas utilizadas para dar el cambio,
+     * o null si no se puede encontrar una solución.
+     */
+    public List<Integer> devolverCambio(int n) {
+        // Monedas disponibles, ordenadas de mayor a menor para el algoritmo voraz
+        final List<Integer> C = Arrays.asList(100, 25, 10, 5, 1); 
+
+        List<Integer> S = new ArrayList<>(); // Contendrá la solución (monedas a devolver)
+        int s = 0; // Suma de los elementos en S
+
+        while (s != n) {
+            int x = -1; // Almacenará la moneda seleccionada en esta iteración
+
+            // Buscar el mayor elemento de C tal que s + x <= n
+            for (int coin : C) {
+                if (s + coin <= n) {
+                    x = coin;
+                    break; // Encontramos la moneda más grande que cumple la condición
+                }
+            }
+
+            // Si no se encontró ninguna moneda que cumpla la condición, no hay solución
+            if (x == -1) {
+                return null; // "no encuentro la solución"
+            }
+
+            S.add(x); // Añadir la moneda seleccionada a la solución
+            s += x;   // Actualizar la suma actual
+        }
+
+        return S; // Devolver la lista de monedas que conforman el cambio
+    }
+}
+```
+### Prueba de Escritorio - Caso 60 y 99 de cambio
+
+<img width="657" height="443" alt="image" src="https://github.com/user-attachments/assets/f5aaef15-5ecc-4405-ba59-319c1c746249" />
+
+## 2. Prueba de Escritorio - Merge Sort
+
+<img width="484" height="634" alt="image" src="https://github.com/user-attachments/assets/6a2b1a2b-06b5-47cd-8968-310357ea3055" />
+
+### Traduccion a Java
+
+```java
+public class OrdenamientoPorMezcla {
+
+    /**
+     * Combina dos sub-arreglos ordenados en un único arreglo ordenado.
+     * Este método es un componente central del algoritmo de Ordenamiento por Mezcla (Merge Sort).
+     *
+     * @param A El arreglo original que contiene los sub-arreglos a ser combinados.
+     * @param p El índice inicial del primer sub-arreglo (L).
+     * @param q El índice final del primer sub-arreglo (L).
+     * @param r El índice final del segundo sub-arreglo (R).
+     */
+    public static void mezclar(int[] A, int p, int q, int r) {
+        // Calcular las longitudes de los dos sub-arreglos
+        int nL = q - p + 1; // Longitud de A[p...q]
+        int nR = r - q;     // Longitud de A[q+1...r]
+
+        // Crear nuevos arreglos temporales L y R
+        int[] L = new int[nL];
+        int[] R = new int[nR];
+
+        // Copiar elementos de A a L
+        for (int i = 0; i < nL; i++) {
+            L[i] = A[p + i];
+        }
+
+        // Copiar elementos de A a R
+        for (int j = 0; j < nR; j++) {
+            R[j] = A[q + 1 + j];
+        }
+
+        // Inicializar índices para L, R y el arreglo combinado A
+        int i = 0; // i indexa el elemento más pequeño restante en L
+        int j = 0; // j indexa el elemento más pequeño restante en R
+        int k = p; // k indexa la ubicación en A a rellenar
+
+        // Mientras cada uno de los arreglos L y R contenga un elemento sin combinar,
+        // copiar el elemento sin combinar más pequeño de vuelta en A[p...r]
+        while (i < nL && j < nR) {
+            if (L[i] <= R[j]) {
+                A[k] = L[i];
+                i = i + 1;
+            } else {
+                A[k] = R[j];
+                j = j + 1;
+            }
+            k = k + 1;
+        }
+
+        // Copiar cualquier elemento restante de L (si R se agotó)
+        while (i < nL) {
+            A[k] = L[i];
+            i = i + 1;
+            k = k + 1;
+        }
+
+        // Copiar cualquier elemento restante de R (si L se agotó)
+        while (j < nR) {
+            A[k] = R[j];
+            j = j + 1;
+            k = k + 1;
+        }
+    }
+}
+```
+
+### Prueba de Escritorio - Lista [54,26,93,17,77,31,44,55,20]
+
+<img width="1622" height="610" alt="image" src="https://github.com/user-attachments/assets/de891c79-2a6e-4ee2-82c0-5ef0f03f841a" />
+
+<img width="1610" height="1631" alt="Sin título" src="https://github.com/user-attachments/assets/10680473-0964-4d44-94ff-9584982c2184" />
+
+
+
+
