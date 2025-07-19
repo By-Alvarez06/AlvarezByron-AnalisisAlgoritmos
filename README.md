@@ -1049,7 +1049,18 @@ public class GreedyChange {
 
 <img width="657" height="443" alt="image" src="https://github.com/user-attachments/assets/f5aaef15-5ecc-4405-ba59-319c1c746249" />
 
-## 2. Prueba de Escritorio - Merge Sort
+## 2. Algoritmo de PRIM - Grafos
+
+### Grafo no Dirigido
+
+<img width="2701" height="3561" alt="image" src="https://github.com/user-attachments/assets/76c0f781-fb6b-4151-a381-72d957ac3b55" />
+
+### Grafo Dirigido
+
+<img width="2501" height="3650" alt="image" src="https://github.com/user-attachments/assets/ec6d1fc3-149f-480d-870a-3f6f35b6363f" />
+
+
+## 3. Prueba de Escritorio - Merge Sort
 
 <img width="484" height="634" alt="image" src="https://github.com/user-attachments/assets/6a2b1a2b-06b5-47cd-8968-310357ea3055" />
 
@@ -1127,7 +1138,7 @@ public class OrdenamientoPorMezcla {
 
 <img width="1610" height="1631" alt="Sin título" src="https://github.com/user-attachments/assets/10680473-0964-4d44-94ff-9584982c2184" />
 
-## 3. Prueba de Escritorio - Divide y Venceras
+## 4. Prueba de Escritorio - Divide y Venceras
 ### 1er Algoritmo Busqueda Binaria 
 
 ```java
@@ -1180,7 +1191,7 @@ public static int BinIter(int[] T, int x) {
 
 <img width="1783" height="323" alt="image" src="https://github.com/user-attachments/assets/1ff5f086-cc63-4e90-a80b-76a5f9c61d1f" />
 
-## 4. Prueba de Escritorio - Algoritmo QuickSort
+## 5. Prueba de Escritorio - Algoritmo QuickSort
 
 ```java
 import java.util.Arrays;
