@@ -1180,3 +1180,108 @@ public static int BinIter(int[] T, int x) {
 
 <img width="1783" height="323" alt="image" src="https://github.com/user-attachments/assets/1ff5f086-cc63-4e90-a80b-76a5f9c61d1f" />
 
+## 4. Prueba de Escritorio - Algoritmo QuickSort
+
+```java
+import java.util.Arrays;
+
+public class QuickSort {
+
+    // Umbral para usar Insertion Sort. Para arrays muy pequeños, es más eficiente.
+    // Un valor común es entre 7 y 20.
+    private static final int THRESHOLD = 7; 
+
+    /**
+     * Implementación del algoritmo Quicksort.
+     * Ordena el sub-array T[i..j] por orden no decreciente.
+     *
+     * @param T El array de enteros.
+     * @param i El índice inicial del sub-array.
+     * @param j El índice final del sub-array.
+     */
+    public void quicksort(int[] T, int i, int j) {
+        // Si el sub-array es lo suficientemente pequeño, usar un método de ordenación más simple (como Insertion Sort)
+        // En Java, Arrays.sort() para sub-arrays es eficiente.
+        if (j - i + 1 <= THRESHOLD) {
+            Arrays.sort(T, i, j + 1); // El segundo argumento de Arrays.sort es exclusivo (j+1)
+        } else {
+            // Particionar el array y obtener la posición final del pivote
+            int l = pivote(T, i, j);
+
+            // Llamadas recursivas para los sub-arrays izquierdo y derecho
+            quicksort(T, i, l - 1);
+            quicksort(T, l + 1, j);
+        }
+    }
+
+    /**
+     * Permuta los elementos de la matriz T[i..j] alrededor de un pivote,
+     * y proporciona un valor 'l' (la posición final del pivote 'p')
+     * tal que:
+     * - T[k] <= p para todo i <= k < l
+     * - T[l] = p
+     * - T[k] > p para todo l < k <= j
+     * El valor inicial de 'p' es T[i].
+     * Este método implementa una variación de la partición de Hoare.
+     *
+     * @param T El array de enteros.
+     * @param i El índice inicial del sub-array.
+     * @param j El índice final del sub-array.
+     * @return El índice final del pivote después de la partición.
+     */
+    private int pivote(int[] T, int i, int j) {
+        int p = T[i]; // El pivote es el primer elemento del sub-array
+        int k = i;    // Puntero izquierdo
+        int l = j;    // Puntero derecho (inicialmente j, no j+1 para evitar AIOOBE en el primer T[l])
+
+        // Bucle principal de partición
+        while (k < l) {
+            // Mover 'k' hacia la derecha hasta encontrar un elemento mayor que el pivote
+            // Asegurarse de que k no exceda los límites del sub-array o cruce l
+            while (T[k] <= p && k < l) { // Nota: he ajustado la condición k < j a k < l para evitar posibles bucles infinitos
+                                         // o accesos fuera de rango si k = j y T[j] <= p.
+                                         // El pseudocódigo original es un poco ambiguo aquí.
+                k++;
+            }
+            // Mover 'l' hacia la izquierda hasta encontrar un elemento menor o igual que el pivote
+            while (T[l] > p) { // Aquí no necesitamos l > k porque el while principal (k < l) lo controla
+                l--;
+            }
+
+            // Si los punteros no se han cruzado, intercambiar los elementos
+            if (k < l) {
+                intercambiar(T, k, l);
+                // Después del intercambio, avanza k y l para continuar la búsqueda
+                // (esto es un detalle de algunas implementaciones de Hoare, no estrictamente en el pseudo original,
+                // pero asegura progreso si T[k] o T[l] son iguales al pivote)
+                // Aunque el pseudocódigo original tiene 'repetir k <- k+1 hasta que T[k] > p' etc. DENTRO
+                // del 'mientras k < l', lo que puede ser redundante o llevar a un doble avance si no se maneja bien.
+                // Mi implementación simplifica esto al dejar los avances dentro de los bucles 'while' de escaneo.
+            }
+        }
+        
+        // Final: Ahora que k >= l (punteros cruzados o encontrados), el elemento en T[l] es el lugar para el pivote
+        // Intercambiar el pivote original (que está en T[i]) con el elemento en T[l]
+        intercambiar(T, i, l); 
+        
+        return l; // 'l' es la posición final del pivote
+    }
+
+    /**
+     * Método auxiliar para intercambiar dos elementos en un array.
+     * @param T El array.
+     * @param idx1 Índice del primer elemento.
+     * @param idx2 Índice del segundo elemento.
+     */
+    private void intercambiar(int[] T, int idx1, int idx2) {
+        int temp = T[idx1];
+        T[idx1] = T[idx2];
+        T[idx2] = temp;
+    }
+}
+```
+
+### Prueba de Escritorio - Array [3,1,4,1,5,9,2]
+
+<img width="1271" height="884" alt="image" src="https://github.com/user-attachments/assets/ce7d4222-6011-42ac-9d0c-e58772094278" />
+
