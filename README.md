@@ -1296,3 +1296,158 @@ public class QuickSort {
 
 <img width="1271" height="884" alt="image" src="https://github.com/user-attachments/assets/ce7d4222-6011-42ac-9d0c-e58772094278" />
 
+## 6. Generación de Pseudoaleatorios
+### Enunciado
+Desarrollar un generador pseudoaleatorio utilizando el método congruencial lineal, programado en Java. A partir de dicho generador deberán:
+1. Implementar el algoritmo con los siguientes parámetros:
+   <img width="652" height="294" alt="image" src="https://github.com/user-attachments/assets/4a647c95-cab9-4f98-8dec-3458aecc66af" />
+2. Generar una secuencia de 100 números normalizados en el intervalo [0,1).
+3. Mostrar los primeros 10 valores generados.
+
+### Codigo en Java
+
+```java
+package generaddorpseudoaleatorio;
+
+/**
+ *
+ * @author Byron Alvarez
+ */
+public class GeneradorPseudoaleatorio {
+
+    private long a; // Multiplicador
+    private long c; // Constante aditiva
+    private long m; // Módulo (2^32)
+    private long semilla; // Semilla inicial (X0)
+    private long ultimoValorGenerado; // Almacena el último valor generado (Xn)
+
+    /**
+     * Constructor del generador pseudoaleatorio.
+     * @param semilla La semilla inicial (X0) para comenzar la generación.
+     */
+    public GeneradorPseudoaleatorio(long semilla) {
+        this.a = 1664525L;
+        this.c = 1013904223L;
+        // El módulo 2^32 es 1L << 32.
+        // Como los resultados de (aXn + c) pueden exceder Long.MAX_VALUE si no se maneja bien,
+        // la operación de módulo implícita de Java para long numbers (que es 2^64) no es lo que necesitamos.
+        // Para simular módulo 2^32 con tipos long en Java, podemos usar un & (m-1) si m es una potencia de 2,
+        // o simplemente permitir que la operación de overflow de long maneje el módulo si lo deseamos,
+        // pero la forma más segura es manejarlo explícitamente o usar BigInteger si los números se hacen muy grandes.
+        // Sin embargo, para 2^32, los números se ajustarán bien dentro de un 'long' de Java.
+        // La operación de módulo de Java (%) funciona con números negativos también, pero aquí siempre esperamos positivos.
+        // Para simular (Xn+1) = (a*Xn + c) mod 2^32 correctamente con longs, podemos simplemente hacer el casting a int
+        // y luego a long de nuevo, porque los int son de 32 bits y su overflow se comporta como mod 2^32.
+        // O más explícitamente, para asegurarse de que el módulo sea 2^32 y no 2^64 (implícito de long):
+        this.m = 1L << 32; // Equivale a 2 elevado a la potencia de 32
+
+        // Aseguramos que la semilla esté dentro del rango [0, m-1]
+        this.semilla = semilla % m;
+        if (this.semilla < 0) { // Si la semilla inicial es negativa
+            this.semilla += m;
+        }
+        this.ultimoValorGenerado = this.semilla;
+    }
+
+    /**
+     * Genera el siguiente número pseudoaleatorio en la secuencia.
+     * La fórmula utilizada es: X_{n+1} = (aX_n + c) mod m
+     * Se usa un truco con int para manejar el módulo 2^32 eficientemente.
+     * Las operaciones con 'long' se comportan de manera que el resultado es 64 bits.
+     * Pero queremos un resultado de 32 bits módulo 2^32.
+     * Castear a 'int' truncará el valor a 32 bits, logrando el efecto de mod 2^32.
+     * Después se vuelve a castear a 'long' para que el método devuelva un 'long'.
+     *
+     * Nota: Si 'aXn + c' excede el rango de un 'int' antes del truncamiento, esto puede
+     * introducir un comportamiento no deseado si no se entiende cómo Java maneja esto.
+     * Sin embargo, para los valores dados (a, c, y Xn siendo de 32 bits), el producto
+     * aXn puede exceder los 32 bits, pero la suma aXn + c aún cabe dentro de un long.
+     * Al hacer el casting a int, el overflow del int maneja el módulo 2^32 automáticamente.
+     *
+     * Ejemplo: (1L << 31) + (1L << 31) - 1 + 1013904223L * 1664525L
+     * podría ser un número muy grande. Sin embargo, (a*Xn + c)
+     * se calcula como un long, y luego (int) para truncar a 32 bits.
+     *
+     * Una forma más explícita y segura para valores muy grandes sería usar BigInteger.
+     * Pero para 2^32, el truco de int es comúnmente usado y efectivo.
+     *
+     * Otra forma de manejar el módulo 2^32 con long sin BigInteger:
+     * `(a * ultimoValorGenerado + c) & (m - 1)`
+     * esto funciona cuando m es una potencia de 2. m - 1 es un número con todos los bits bajos en 1.
+     * Para m = 2^32, m-1 es 0x00000000FFFFFFFFL. Un AND con esto efectivamente trunca a 32 bits.
+     * Usaré esta técnica ya que es más directa y robusta.
+     */
+    public long generarSiguiente() {
+        // Calcula el siguiente valor utilizando la fórmula del LCG
+        // La operación (a * ultimoValorGenerado + c) puede exceder el rango de un long de 64 bits si a y Xn son muy grandes.
+        // Pero en nuestro caso, 2^32 es el módulo, por lo que los valores de Xn siempre serán menores que 2^32.
+        // a y c son también números que caben en 32 bits.
+        // El producto de dos números de 32 bits puede ser de hasta 64 bits, por lo que el resultado cabe en un 'long'.
+        // Usamos el operador & (bitwise AND) con (m-1) para simular la operación de módulo cuando m es una potencia de 2.
+        // Esto es equivalente a (a * ultimoValorGenerado + c) % m, pero más eficiente para potencias de 2.
+        ultimoValorGenerado = (a * ultimoValorGenerado + c) & (m - 1);
+        return ultimoValorGenerado;
+    }
+
+    /**
+     * Normaliza un número pseudoaleatorio generado (que está en el rango [0, m-1])
+     * al intervalo [0, 1).
+     * @param valorPseudoaleatorio El número entero generado por el LCG.
+     * @return El número normalizado en el intervalo [0, 1).
+     */
+    public double normalizar(long valorPseudoaleatorio) {
+        // Casting a double antes de la división para asegurar una división de punto flotante
+        return (double) valorPseudoaleatorio / m;
+    }
+
+    public static void main(String[] args) {
+        // 1. Implementar el algoritmo con los parámetros dados:
+        long semillaInicial = 12345; // número arbitrario como 12345.
+        System.out.println("Semilla inicial (X0): " + semillaInicial);
+
+        GeneradorPseudoaleatorio generador = new GeneradorPseudoaleatorio(semillaInicial);
+
+        // 2. Generar una secuencia de 100 números normalizados en el intervalo [0,1].
+        System.out.println("\nGenerando 100 números pseudoaleatorios normalizados:");
+        double[] secuenciaNormalizada = new double[100];
+        for (int i = 0; i < 100; i++) {
+            long valorBruto = generador.generarSiguiente();
+            secuenciaNormalizada[i] = generador.normalizar(valorBruto);
+        }
+
+        // 3. Mostrar los primeros 10 valores generados.
+        System.out.println("\nPrimeros 10 valores normalizados generados:");
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Valor #" + (i + 1) + ": " + secuenciaNormalizada[i]);
+        }
+    }
+}
+```
+
+### Salida / Resultado del Programa (Semilla inicial: 12345)
+
+<img width="771" height="345" alt="image" src="https://github.com/user-attachments/assets/fd7c15e3-df7c-4008-a563-29830ff298ae" />
+
+### Analizar la distribucion
+
+<img width="1094" height="420" alt="image" src="https://github.com/user-attachments/assets/cc5e9f4f-2a5c-410a-bf77-1b24bf66e211" />
+
+Responder:
+
+**✴ ¿La distribución es aproximadamente uniforme?**
+
+| **Intervalo** | **Cantidad** |
+| ------------- | ------------ |
+| \[0.0, 0.2)   | 20           |
+| \[0.2, 0.4)   | 18           |
+| \[0.4, 0.6)   | 21           |
+| \[0.6, 0.8)   | 22           |
+| \[0.8, 1.0)   | 19           |
+
+**Sí**, los valores se distribuyen de manera bastante uniforme entre los 5 intervalos definidos, lo cual es característico de un buen generador congruencial lineal.
+
+**✴ ¿Qué efecto tiene cambiar la semilla?**
+
+Cambiar la semilla modifica completamente la secuencia generada. Sin embargo, la forma de la distribución (uniforme) se mantiene si el generador está bien implementado.
+
+
