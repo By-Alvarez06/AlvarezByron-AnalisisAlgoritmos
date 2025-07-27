@@ -1657,3 +1657,242 @@ Nosotros como usuarios ingresamos en la parte superior la cantidad de vértices 
 
 <img width="1455" height="971" alt="image" src="https://github.com/user-attachments/assets/2a27c77e-7e54-4a48-b26a-6f7d50deda51" />
 
+## 8. Aplicación para determinar el camino mínimo a partir de un grafo dirigido
+### Código en java con interfaz gráfica
+
+```java
+package algoritmosgrafos;
+
+/**
+ *
+ * @author bvalv
+ */
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Arrays;
+
+public class AlgoritmoDijkstra extends JFrame {
+
+    private int vertices;
+    private int[][] graph;
+    private JTextArea logArea;
+    private JPanel graphPanel;
+    private JTextField verticesField, startField;
+    private JButton generateButton, runButton;
+    private Point[] nodePositions; 
+    private int[] dist;   
+    private int[] parent; 
+
+    public AlgoritmoDijkstra() {
+        setTitle("Algoritmo de Dijkstra - Camino mínimo");
+        setSize(850, 650);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Panel superior: entrada
+        JPanel topPanel = new JPanel();
+        topPanel.add(new JLabel("Número de vértices:"));
+        verticesField = new JTextField(5);
+        topPanel.add(verticesField);
+        generateButton = new JButton("Generar Grafo Aleatorio");
+        topPanel.add(generateButton);
+
+        topPanel.add(new JLabel("Nodo inicial:"));
+        startField = new JTextField(5);
+        topPanel.add(startField);
+
+        runButton = new JButton("Ejecutar Dijkstra");
+        topPanel.add(runButton);
+        add(topPanel, BorderLayout.NORTH);
+
+        // Panel central: dibujo del grafo
+        graphPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (graph != null) drawGraph(g);
+            }
+        };
+        graphPanel.setBackground(Color.WHITE);
+        add(graphPanel, BorderLayout.CENTER);
+
+        // Panel inferior: área de logs
+        logArea = new JTextArea(20, 50);
+        logArea.setEditable(false);
+        JScrollPane scroll = new JScrollPane(logArea);
+        add(scroll, BorderLayout.SOUTH);
+
+        // Listeners
+        generateButton.addActionListener(e -> generateGraph());
+        runButton.addActionListener(e -> runDijkstra());
+
+        setVisible(true);
+    }
+
+    // Generar un grafo dirigido aleatorio
+    private void generateGraph() {
+        try {
+            vertices = Integer.parseInt(verticesField.getText());
+            graph = new int[vertices][vertices];
+            nodePositions = new Point[vertices];
+
+            // Posiciones circulares
+            int radius = Math.min(graphPanel.getWidth(), graphPanel.getHeight()) / 2 - 60;
+            int centerX = graphPanel.getWidth() / 2;
+            int centerY = graphPanel.getHeight() / 2;
+            for (int i = 0; i < vertices; i++) {
+                double angle = 2 * Math.PI * i / vertices;
+                int x = centerX + (int) (radius * Math.cos(angle));
+                int y = centerY + (int) (radius * Math.sin(angle));
+                nodePositions[i] = new Point(x, y);
+            }
+
+            // Llenar matriz con pesos aleatorios (grafo dirigido)
+            for (int i = 0; i < vertices; i++) {
+                for (int j = 0; j < vertices; j++) {
+                    if (i != j && Math.random() < 0.5) { 
+                        int weight = 1 + (int) (Math.random() * 20);
+                        graph[i][j] = weight;
+                    }
+                }
+            }
+
+            logArea.setText("Grafo dirigido generado aleatoriamente.\n");
+            repaint();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Ingrese un número válido de vértices.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Dibujar el grafo con flechas
+    private void drawGraph(Graphics g) {
+        g.setFont(new Font("Arial", Font.BOLD, 14));
+
+        // Dibujar aristas
+        for (int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                if (graph[i][j] != 0) {
+                    g.setColor(Color.GRAY);
+                    drawArrow(g, nodePositions[i].x, nodePositions[i].y, nodePositions[j].x, nodePositions[j].y);
+                    int midX = (nodePositions[i].x + nodePositions[j].x) / 2;
+                    int midY = (nodePositions[i].y + nodePositions[j].y) / 2;
+                    g.setColor(Color.BLACK);
+                    g.drawString(String.valueOf(graph[i][j]), midX, midY);
+                }
+            }
+        }
+
+        // Resaltar caminos
+        if (parent != null) {
+            g.setColor(Color.RED);
+            for (int v = 0; v < vertices; v++) {
+                if (parent[v] != -1) {
+                    drawArrow(g, nodePositions[parent[v]].x, nodePositions[parent[v]].y, nodePositions[v].x, nodePositions[v].y);
+                }
+            }
+        }
+
+        // Dibujar nodos
+        for (int i = 0; i < vertices; i++) {
+            g.setColor(Color.CYAN);
+            g.fillOval(nodePositions[i].x - 20, nodePositions[i].y - 20, 40, 40);
+            g.setColor(Color.BLACK);
+            g.drawOval(nodePositions[i].x - 20, nodePositions[i].y - 20, 40, 40);
+            g.drawString(String.valueOf(i), nodePositions[i].x - 5, nodePositions[i].y + 5);
+        }
+    }
+
+    // Dibujar flecha entre dos puntos
+    private void drawArrow(Graphics g, int x1, int y1, int x2, int y2) {
+        int ARR_SIZE = 10;
+        double dx = x2 - x1, dy = y2 - y1;
+        double angle = Math.atan2(dy, dx);
+        int len = (int) Math.sqrt(dx * dx + dy * dy) - 20; 
+        x2 = x1 + (int) (len * Math.cos(angle));
+        y2 = y1 + (int) (len * Math.sin(angle));
+
+        g.drawLine(x1, y1, x2, y2);
+        int xArrow1 = x2 - (int) (ARR_SIZE * Math.cos(angle - Math.PI / 6));
+        int yArrow1 = y2 - (int) (ARR_SIZE * Math.sin(angle - Math.PI / 6));
+        int xArrow2 = x2 - (int) (ARR_SIZE * Math.cos(angle + Math.PI / 6));
+        int yArrow2 = y2 - (int) (ARR_SIZE * Math.sin(angle + Math.PI / 6));
+        g.drawLine(x2, y2, xArrow1, yArrow1);
+        g.drawLine(x2, y2, xArrow2, yArrow2);
+    }
+
+    // Ejecutar Dijkstra
+    private void runDijkstra() {
+        if (graph == null) {
+            JOptionPane.showMessageDialog(this, "Primero genere un grafo.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            int start = Integer.parseInt(startField.getText());
+            if (start < 0 || start >= vertices) {
+                JOptionPane.showMessageDialog(this, "Nodo inicial inválido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            dist = new int[vertices];
+            parent = new int[vertices];
+            boolean[] visited = new boolean[vertices];
+            Arrays.fill(dist, Integer.MAX_VALUE);
+            Arrays.fill(parent, -1);
+            dist[start] = 0;
+
+            logArea.append("\nEjecución del Algoritmo de Dijkstra desde nodo " + start + ":\n");
+
+            for (int count = 0; count < vertices - 1; count++) {
+                int u = minDistance(dist, visited);
+                if (u == -1) break;
+                visited[u] = true;
+
+                logArea.append("Nodo agregado: " + u + " | Distancias: " + Arrays.toString(dist) + "\n");
+
+                for (int v = 0; v < vertices; v++) {
+                    if (!visited[v] && graph[u][v] != 0 && dist[u] != Integer.MAX_VALUE &&
+                            dist[u] + graph[u][v] < dist[v]) {
+                        dist[v] = dist[u] + graph[u][v];
+                        parent[v] = u;
+                    }
+                }
+                repaint();
+                try { Thread.sleep(500); } catch (InterruptedException e) {}
+            }
+
+            logArea.append("\nDistancias finales desde el nodo " + start + ":\n");
+            for (int i = 0; i < vertices; i++) {
+                logArea.append("Nodo " + i + " - Distancia: " + dist[i] + "\n");
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Ingrese un nodo inicial válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Obtener el nodo con distancia mínima
+    private int minDistance(int[] dist, boolean[] visited) {
+        int min = Integer.MAX_VALUE, minIndex = -1;
+        for (int v = 0; v < vertices; v++) {
+            if (!visited[v] && dist[v] < min) {
+                min = dist[v];
+                minIndex = v;
+            }
+        }
+        return minIndex;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(AlgoritmoDijkstra::new);
+    }
+}
+```
+
+### Ejemplo de Ejecución
+
+Nosotros como usuarios ingresamos en la parte superior la cantidad de vértices que deseamos que se generen en nuestro gráfo, damos clic en "GENERAR GRAFO ALEATORIO" y la aplicación se encarga de generar un gráfo con la cantidad de vértices especificados, con caminos y pesos aleatorios, se puede dar clic al botón las veces que guste hasta tener un grafo a nuestro gusto, la aplicación se encarga de dibujar gráfos aleatorios con vertices y flechas para que podamos visualizar la dirección entre vértice y vértice; al tener el grafo que prefiramos, escogemos el vértice desde el que deseamos que inicie el recorrido y damos clic en "EJECUTAR DIJKSTRA" y la app se encarga de realizar el algoritmo de Dijkstra, resalta en el gráfo dibujado el camino, y nos da el árbol de recubrimiento mínimo con su peso total.  
+
+**Nota**: En el algoritmo de Dijkstra el valor de **2147483647** lo usa como valor inicial para indicar que un nodo está “a distancia infinita” (no alcanzable aún).
+
+<img width="1398" height="1013" alt="image" src="https://github.com/user-attachments/assets/eaca3cef-1fb6-4712-a3fe-33f5748d7110" />
+
