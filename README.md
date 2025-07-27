@@ -1450,4 +1450,210 @@ Responder:
 
 Cambiar la semilla modifica completamente la secuencia generada. Sin embargo, la forma de la distribución (uniforme) se mantiene si el generador está bien implementado.
 
+## 7. Aplicación encontrar el árbol de recubrimiento mínimo a partir de un grafo no dirigido (Algoritmo de Prim)
+### Código Java con interfaz gráfica
+```java
+package algoritmosgrafos;
+
+/**
+ *
+ * @author bvalv
+ */
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Arrays;
+
+public class AlgoritmoPrim extends JFrame {
+
+    private int vertices;
+    private int[][] graph;
+    private JTextArea logArea;
+    private JPanel graphPanel;
+    private JTextField verticesField;
+    private JButton generateButton, runButton;
+    private Point[] nodePositions; // Posiciones de los nodos
+    private int[] parent;          // Para MST
+
+    public AlgoritmoPrim() {
+        setTitle("Algoritmo de Prim - Árbol de Recubrimiento Mínimo");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Panel superior: entrada
+        JPanel topPanel = new JPanel();
+        topPanel.add(new JLabel("Número de vértices:"));
+        verticesField = new JTextField(5);
+        topPanel.add(verticesField);
+        generateButton = new JButton("Generar Grafo Aleatorio");
+        runButton = new JButton("Ejecutar Prim");
+        topPanel.add(generateButton);
+        topPanel.add(runButton);
+        add(topPanel, BorderLayout.NORTH);
+
+        // Panel central: dibujo del grafo
+        graphPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (graph != null) drawGraph(g);
+            }
+        };
+        graphPanel.setBackground(Color.WHITE);
+        add(graphPanel, BorderLayout.CENTER);
+
+        // Panel inferior: área de logs
+        logArea = new JTextArea(10, 50);
+        logArea.setEditable(false);
+        JScrollPane scroll = new JScrollPane(logArea);
+        add(scroll, BorderLayout.SOUTH);
+
+        // Listeners
+        generateButton.addActionListener(e -> generateGraph());
+        runButton.addActionListener(e -> runPrim());
+
+        setVisible(true);
+    }
+
+    // Generar un grafo aleatorio
+    private void generateGraph() {
+        try {
+            vertices = Integer.parseInt(verticesField.getText());
+            graph = new int[vertices][vertices];
+            nodePositions = new Point[vertices];
+
+            // Generar posiciones circulares de nodos
+            int radius = Math.min(graphPanel.getWidth(), graphPanel.getHeight()) / 2 - 50;
+            int centerX = graphPanel.getWidth() / 2;
+            int centerY = graphPanel.getHeight() / 2;
+            for (int i = 0; i < vertices; i++) {
+                double angle = 2 * Math.PI * i / vertices;
+                int x = centerX + (int) (radius * Math.cos(angle));
+                int y = centerY + (int) (radius * Math.sin(angle));
+                nodePositions[i] = new Point(x, y);
+            }
+
+            // Llenar matriz con pesos aleatorios
+            for (int i = 0; i < vertices; i++) {
+                for (int j = i + 1; j < vertices; j++) {
+                    if (Math.random() < 0.6) { // 60% probabilidad de arista
+                        int weight = 1 + (int) (Math.random() * 20);
+                        graph[i][j] = weight;
+                        graph[j][i] = weight;
+                    }
+                }
+            }
+
+            logArea.setText("Grafo generado aleatoriamente.\n");
+            repaint();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Ingrese un número válido de vértices.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Dibujar grafo
+    private void drawGraph(Graphics g) {
+        g.setFont(new Font("Arial", Font.BOLD, 14));
+        // Dibujar aristas
+        for (int i = 0; i < vertices; i++) {
+            for (int j = i + 1; j < vertices; j++) {
+                if (graph[i][j] != 0) {
+                    g.setColor(Color.GRAY);
+                    g.drawLine(nodePositions[i].x, nodePositions[i].y, nodePositions[j].x, nodePositions[j].y);
+                    // Peso en el medio
+                    int midX = (nodePositions[i].x + nodePositions[j].x) / 2;
+                    int midY = (nodePositions[i].y + nodePositions[j].y) / 2;
+                    g.setColor(Color.BLACK);
+                    g.drawString(String.valueOf(graph[i][j]), midX, midY);
+                }
+            }
+        }
+        // Dibujar aristas del MST (si existen)
+        if (parent != null) {
+            g.setColor(Color.RED);
+            for (int i = 1; i < vertices; i++) {
+                if (parent[i] != -1) {
+                    g.drawLine(nodePositions[i].x, nodePositions[i].y, nodePositions[parent[i]].x, nodePositions[parent[i]].y);
+                }
+            }
+        }
+        // Dibujar nodos
+        for (int i = 0; i < vertices; i++) {
+            g.setColor(Color.CYAN);
+            g.fillOval(nodePositions[i].x - 20, nodePositions[i].y - 20, 40, 40);
+            g.setColor(Color.BLACK);
+            g.drawOval(nodePositions[i].x - 20, nodePositions[i].y - 20, 40, 40);
+            g.drawString(String.valueOf(i), nodePositions[i].x - 5, nodePositions[i].y + 5);
+        }
+    }
+
+    // Ejecutar Prim y mostrar pasos
+    private void runPrim() {
+        if (graph == null) {
+            JOptionPane.showMessageDialog(this, "Primero genere un grafo.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        parent = new int[vertices];
+        int[] key = new int[vertices];
+        boolean[] mstSet = new boolean[vertices];
+
+        Arrays.fill(key, Integer.MAX_VALUE);
+        Arrays.fill(mstSet, false);
+        parent[0] = -1;
+        key[0] = 0;
+
+        logArea.append("\nEjecución del Algoritmo de Prim:\n");
+        for (int count = 0; count < vertices - 1; count++) {
+            int u = minKey(key, mstSet);
+            mstSet[u] = true;
+
+            logArea.append("\nIteración " + (count + 1) + ": Vértice agregado = " + u + "\n");
+            logArea.append("Claves actuales: " + Arrays.toString(key) + "\n");
+            logArea.append("Vertices en MST: " + Arrays.toString(mstSet) + "\n");
+
+            for (int v = 0; v < vertices; v++) {
+                if (graph[u][v] != 0 && !mstSet[v] && graph[u][v] < key[v]) {
+                    parent[v] = u;
+                    key[v] = graph[u][v];
+                }
+            }
+            repaint();
+            try { Thread.sleep(500); } catch (InterruptedException e) {}
+        }
+
+        int total = 0;
+        logArea.append("\nÁrbol de Recubrimiento Mínimo:\n");
+        for (int i = 1; i < vertices; i++) {
+            logArea.append(parent[i] + " - " + i + " (Peso: " + graph[i][parent[i]] + ")\n");
+            total += graph[i][parent[i]];
+        }
+        logArea.append("Peso total: " + total + "\n");
+
+        repaint();
+    }
+
+    // Obtener el índice del vértice con clave mínima
+    private int minKey(int[] key, boolean[] mstSet) {
+        int min = Integer.MAX_VALUE, minIndex = -1;
+        for (int v = 0; v < vertices; v++) {
+            if (!mstSet[v] && key[v] < min) {
+                min = key[v];
+                minIndex = v;
+            }
+        }
+        return minIndex;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(AlgoritmoPrim::new);
+    }
+}
+```
+
+### Ejemplo de Ejecución
+
+Nosotros como usuarios ingresamos en la parte superior la cantidad de vértices que deseamos que se generen en nuestro gráfo, damos clic en "GENERAR GRAFO ALEATORIO" y la aplicación se encarga de generar un gráfo con la cantidad de vértices especificados, con caminos y pesos aleatorios, se puede dar clic al botón las veces que guste hasta tener un grafo a nuestro gusto; al tener el grafo que prefiramos, damos clic en "EJECUTAR PRIM" y la app se encarga de realizar el algoritmo de Prim, resalta en el gráfo dibujado el camino, y nos da el árbol de recubrimiento mínimo con su peso total  
+
+<img width="1455" height="971" alt="image" src="https://github.com/user-attachments/assets/2a27c77e-7e54-4a48-b26a-6f7d50deda51" />
 
