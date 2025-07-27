@@ -1657,7 +1657,7 @@ Nosotros como usuarios ingresamos en la parte superior la cantidad de vértices 
 
 <img width="1455" height="971" alt="image" src="https://github.com/user-attachments/assets/2a27c77e-7e54-4a48-b26a-6f7d50deda51" />
 
-## 8. Aplicación para determinar el camino mínimo a partir de un grafo dirigido
+## 8. Aplicación para determinar el camino mínimo a partir de un grafo dirigido (Algoritmo de Dijkstra)
 ### Código en java con interfaz gráfica
 
 ```java
