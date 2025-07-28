@@ -1191,6 +1191,23 @@ public static int BinIter(int[] T, int x) {
 
 <img width="1783" height="323" alt="image" src="https://github.com/user-attachments/assets/1ff5f086-cc63-4e90-a80b-76a5f9c61d1f" />
 
+## Multiplicación de Matrices - Algoritmo de Strassen
+### Prueba de Escritorio
+
+**Se divide cada matriz de entrada (A y B) en cuatro submatrices de tamaño n/2 x n/2.**
+
+<img width="530" height="728" alt="image" src="https://github.com/user-attachments/assets/25e87ad8-223c-4ad2-8229-5820da30c2cf" />
+
+**Se calculan siete productos de combinaciones de estas submatrices, usando sumas y restas. Estos productos (M1 a M7) son calculados de manera recursiva, dividiendo cada vez las submatrices en otras más pequeñas hasta llegar a un tamaño base donde la multiplicación se realiza de forma estándar.**
+
+<img width="1768" height="249" alt="image" src="https://github.com/user-attachments/assets/c201453b-f8c3-44c9-9331-1e49939dd7ca" />
+
+**Las cuatro submatrices de la matriz resultante (C) se obtienen combinando los siete productos calculados anteriormente mediante sumas y resta**
+
+<img width="971" height="236" alt="image" src="https://github.com/user-attachments/assets/4520d673-c2bf-40c8-8e17-eb1932360b98" />
+
+
+
 ## 5. Prueba de Escritorio - Algoritmo QuickSort
 
 ```java
